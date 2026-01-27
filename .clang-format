@@ -1,0 +1,12 @@
+BasedOnStyle: Google
+
+IndentWidth: 2
+ContinuationIndentWidth: 4
+
+IndentAccessModifiers: true
+AccessModifierOffset: 0
+
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+ColumnLimit: 100
