@@ -1,0 +1,20 @@
+name: Build Arcadia2D
+
+on:
+  push:
+  pull_request:
+    branches: [ "main"]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure (Debug)
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+
+      - name: Build (Debug)
+        run: cmake --build build --config Debug
