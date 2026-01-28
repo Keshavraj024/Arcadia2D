@@ -26,7 +26,7 @@ std::optional<GamepadButton> Input::HardwareToLogical(int button, int id) {
 
   if (const auto value = std::ranges::find(mapping, button); value != mapping.end()) {
     auto index = std::distance(mapping.begin(), value);
-    return GamepadButton{index};
+    return GamepadButton(index);
   }
 
   return std::nullopt;
