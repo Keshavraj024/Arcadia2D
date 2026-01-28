@@ -10,6 +10,7 @@ struct EngineConfig {
     std::string windowTitle {};
     bool disableSfmlLogs {};
     sf::Time maxDeltaTime {};
+    float globalVolume;
 
 
     EngineConfig();

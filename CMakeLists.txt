@@ -16,7 +16,17 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS Engine/Include/*.h)
 
 add_executable(Arcadia2D
     Engine/Include/Managers/SaveManager.h
-    Engine/Source/Managers/SaveManager.cpp)
+    Engine/Source/Managers/SaveManager.cpp
+    Engine/Include/Managers/ClipboardManager.h
+    Engine/Source/Managers/ClipboardManager.cpp
+    Engine/Include/Managers/ResourceManager.h
+    Engine/Source/Managers/ResourceManager.cpp
+    Engine/Include/Managers/AudioManager.h
+    Engine/Source/Managers/AudioManager.cpp
+    Engine/Include/Utils/InputBindings.h
+    Engine/Source/Utils/InputBindings.cpp
+    Engine/Include/Managers/InputManager.h
+    Engine/Source/Managers/InputManager.cpp)
 target_sources(Arcadia2D PRIVATE ${SOURCES} ${HEADERS})
 
 target_include_directories(Arcadia2D PRIVATE Engine/Include)

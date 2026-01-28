@@ -14,7 +14,7 @@ Engine::Engine() : m_window(sf::VideoMode(sf::Vector2u{gEngineConfig.windowSize}
 
   LOG_INFO("WINDOW IS CREATED");
 
-  m_engineContext.save.Set("score", 42);
+  m_engineContext.audio.SetGlobalVolume(gEngineConfig.globalVolume);
 }
 
 bool Engine::IsRunning() const
@@ -42,24 +42,38 @@ void Engine::Render()
   m_window.display();
 }
 
-
-void Engine::EngineWindowClose()
+void Engine::EventWindowClose()
 {
-  m_window.close();
-  LOG_INFO("WINDOW CLOSED {:.2f} ", m_engineContext.time.GetElapsedTime());
+    m_window.close();
+    LOG_INFO("WINDOW CLOSED {:.2f} ", m_engineContext.time.GetElapsedTime());
 }
 
-void Engine::EngineWindowResize(const sf::Vector2u& windowSize)
+void Engine::EventWindowResize(const sf::Vector2u &windowSize)
 {
-  LOG_INFO("WINDOW SIZE RESIZED X: {} Y: {}", windowSize.x, windowSize.y);
+    LOG_INFO("WINDOW SIZE RESIZED X: {} Y: {}", windowSize.x, windowSize.y);
 }
 
-void Engine::EngineWindowFocusLost()
+void Engine::EventWindowFocusLost()
 {
-  LOG_INFO("WINDOW FOCUS LOST");
+    LOG_INFO("WINDOW FOCUS LOST");
 }
 
-void Engine::EngineWindowFocusGain()
+void Engine::EventWindowFocusGain()
 {
-  LOG_INFO("WINDOW FOCUS GAIN");
+    LOG_INFO("WINDOW FOCUS GAIN");
+}
+
+void Engine::EventJoystickConnected(const int id)
+{
+    LOG_INFO("JOYSTICK WITH ID : {} CONNECTED ", id);
+}
+
+void Engine::EventJoystickDisconnected(const int id)
+{
+    LOG_INFO("JOYSTICK WITH ID : {} DISCONNECTED ", id);
+}
+
+void Engine::EventMouseButtonPressed()
+{
+    LOG_INFO("MOUSE BUTTON PRESSED");
 }

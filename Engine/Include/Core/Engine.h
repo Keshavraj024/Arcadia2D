@@ -20,8 +20,12 @@ class Engine {
 
   private:
     friend EngineVisitor;
-    void  EngineWindowClose();
-    void EngineWindowResize(const sf::Vector2u& windowSize);
-    void EngineWindowFocusLost();
-    void EngineWindowFocusGain();
+
+    void EventWindowClose();
+    void EventWindowResize(const sf::Vector2u& windowSize);
+    void EventWindowFocusLost();
+    void EventWindowFocusGain();
+    void EventJoystickConnected(const int id);
+    void EventJoystickDisconnected(const int id);
+    void EventMouseButtonPressed();
 };
