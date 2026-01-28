@@ -13,6 +13,8 @@ Engine::Engine() : m_window(sf::VideoMode(sf::Vector2u{gEngineConfig.windowSize}
 
 
   LOG_INFO("WINDOW IS CREATED");
+
+  m_engineContext.save.Set("score", 42);
 }
 
 bool Engine::IsRunning() const
@@ -29,7 +31,7 @@ void Engine::ProcessEvents()
 
 void Engine::Update()
 {
-
+  m_engineContext.time.Update();
 }
 
 void Engine::Render()
@@ -44,7 +46,7 @@ void Engine::Render()
 void Engine::EngineWindowClose()
 {
   m_window.close();
-  LOG_INFO("WINDOW CLOSED");
+  LOG_INFO("WINDOW CLOSED {:.2f} ", m_engineContext.time.GetElapsedTime());
 }
 
 void Engine::EngineWindowResize(const sf::Vector2u& windowSize)

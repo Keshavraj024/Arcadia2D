@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Core/EngineVisitor.h"
+#include "Core/EngineContext.h"
 
 class Engine {
   public:
@@ -15,6 +16,7 @@ class Engine {
 
   private:
     sf::RenderWindow m_window;
+    EngineContext m_engineContext;
 
   private:
     friend EngineVisitor;

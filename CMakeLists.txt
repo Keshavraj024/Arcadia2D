@@ -14,7 +14,9 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS Engine/Source/*.cpp)
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS Engine/Include/*.h)
 
 
-add_executable(Arcadia2D)
+add_executable(Arcadia2D
+    Engine/Include/Managers/SaveManager.h
+    Engine/Source/Managers/SaveManager.cpp)
 target_sources(Arcadia2D PRIVATE ${SOURCES} ${HEADERS})
 
 target_include_directories(Arcadia2D PRIVATE Engine/Include)
