@@ -6,6 +6,7 @@ Engine::Engine() : m_window(sf::VideoMode(sf::Vector2u{gEngineConfig.windowSize}
 {
   m_window.setIcon(sf::Image("Content/Textures/windowIcon.png"));
   m_window.setMinimumSize(m_window.getSize() / 2u);
+  m_window.setMouseCursorVisible(false);
 
   if(gEngineConfig.disableSfmlLogs) {
     sf::err().rdbuf(nullptr);
@@ -32,6 +33,7 @@ void Engine::ProcessEvents()
 void Engine::Update()
 {
   m_engineContext.time.Update();
+  m_engineContext.cursor.Update(m_engineContext.time.GetDeltaTime());
 }
 
 void Engine::Render()
@@ -41,6 +43,8 @@ void Engine::Render()
   m_engineContext.renderer.BeginDrawing();
 
   m_window.draw(sf::Sprite(m_engineContext.renderer.FinishDrawing()));
+
+  m_engineContext.cursor.Render();
 
   m_window.display();
 }

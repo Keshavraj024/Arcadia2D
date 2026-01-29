@@ -18,4 +18,10 @@ EngineConfig::EngineConfig() {
   backgroundColor = {json["backgroundColor"][0],
                      json["backgroundColor"][1],
                      json["backgroundColor"][2]};
+
+  cursorSpeed = json["cursorSpeed"];
+  cursorRadius = json["cursorRadius"];
+  cursorColor = {json["cursorColor"][0], json["cursorColor"][1], json["cursorColor"][2]};
+  joystickDeadzone = json["joystickDeadzone"];
+  cursorVisibility = json["cursorVisibility"];
 }

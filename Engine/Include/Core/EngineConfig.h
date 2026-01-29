@@ -13,6 +13,11 @@ struct EngineConfig {
     sf::Time maxDeltaTime {};
     float globalVolume;
     sf::Color backgroundColor;
+    float cursorSpeed;
+    float cursorRadius;
+    sf::Color cursorColor;
+    float joystickDeadzone;
+    bool cursorVisibility;
 
     EngineConfig();
 };

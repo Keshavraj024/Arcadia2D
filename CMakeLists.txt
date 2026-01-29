@@ -14,8 +14,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS Engine/Source/*.cpp)
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS Engine/Include/*.h)
 
 
-add_executable(Arcadia2D
-    Engine/Source/Managers/ScreenshotManager.cpp)
+add_executable(Arcadia2D)
 target_sources(Arcadia2D PRIVATE ${SOURCES} ${HEADERS})
 
 target_include_directories(Arcadia2D PRIVATE Engine/Include)
