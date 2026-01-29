@@ -9,7 +9,7 @@ AccessModifierOffset: 0
 PointerAlignment: Left
 ReferenceAlignment: Left
 
-AllowShortFunctionsOnASingleLine: Never
+# AllowShortFunctionsOnASingleLine: Never
 
 ColumnLimit: 100
 

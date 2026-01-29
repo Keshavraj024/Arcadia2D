@@ -28,4 +28,5 @@ class Engine {
     void EventJoystickConnected(const int id);
     void EventJoystickDisconnected(const int id);
     void EventMouseButtonPressed();
+    void EventWindowScreenshot();
 };

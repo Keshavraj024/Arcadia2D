@@ -13,6 +13,7 @@ struct EngineVisitor{
     void operator()(const sf::Event::JoystickConnected&);
     void operator()(const sf::Event::JoystickDisconnected&);
     void operator()(const sf::Event::MouseButtonPressed&);
+    void operator()(const sf::Event::KeyPressed&);
     void operator()(const auto&) {};
     ;
 };

@@ -21,3 +21,8 @@ void EngineVisitor::operator()(const sf::Event::JoystickDisconnected& joystick) 
 void EngineVisitor::operator()(const sf::Event::MouseButtonPressed&) {
   engine.EventMouseButtonPressed();
 }
+
+void EngineVisitor::operator()(const sf::Event::KeyPressed& key) {
+    if(key.control && key.shift && key.scancode == sf::Keyboard::Scan::S)
+        engine.EventWindowScreenshot();
+}

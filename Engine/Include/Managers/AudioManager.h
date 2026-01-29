@@ -2,8 +2,9 @@
 
 #include <SFML/System/Vector3.hpp>
 
-class AudioManager {
-  public:
+class AudioManager
+{
+public:
     void SetGlobalVolume(float volume);
     float GetGlobalVolume() const;
 

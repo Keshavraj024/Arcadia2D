@@ -1,7 +1,8 @@
 #pragma once
 
-#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <string>
 
 struct EngineConfig {
@@ -11,7 +12,7 @@ struct EngineConfig {
     bool disableSfmlLogs {};
     sf::Time maxDeltaTime {};
     float globalVolume;
-
+    sf::Color backgroundColor;
 
     EngineConfig();
 };
