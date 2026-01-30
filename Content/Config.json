@@ -1,13 +1,19 @@
 {
-    "windowSize" : [800, 800],
-    "windowTitle" : "Arcadia2D",
-    "disableSfmlLogs": true,
-    "maxDeltaTime": 0.03,
-    "globalVolume": 100,
-    "backgroundColor": [255,255,255],
-    "cursorSpeed": 800,
-    "cursorVisibility": true,
-    "cursorRadius": 10,
-    "joystickDeadzone": 0.1,
-    "cursorColor" : [255, 100, 0]
+  "windowSize": [800, 800],
+  "windowTitle": "Arcadia2D",
+  "disableSfmlLogs": true,
+  "maxDeltaTime": 0.03,
+  "globalVolume": 100,
+  "backgroundColor": [255, 255, 255],
+
+  "cursorSpeed": 800,
+  "cursorVisibility": true,
+  "cursorRadius": 10,
+  "joystickDeadzone": 0.1,
+  "cursorColor": [255, 100, 0],
+
+  "Gui": {
+    "theme": "Content/Themes/Black.txt",
+    "font": "Content/Fonts/PressStart2P-Regular.ttf"
+  }
 }

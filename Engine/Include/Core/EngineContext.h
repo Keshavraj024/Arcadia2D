@@ -11,6 +11,8 @@
 #include "Managers/SaveManager.h"
 #include "Managers/ScreenshotManager.h"
 #include "Managers/TimeManager.h"
+#include "Managers/GuiManager.h"
+#include "Managers/SceneManager.h"
 
 struct EngineContext {
     RandomManager random;
@@ -23,9 +25,12 @@ struct EngineContext {
     RenderManager renderer;
     ScreenshotManager screenshot;
     CursorManager cursor;
+    GuiManager gui;
+    SceneManager scenes;
 
     EngineContext(sf::RenderWindow &window)
         : screenshot(window)
-        , cursor(window)
+        , cursor(window),
+        gui(window)
     {}
 };

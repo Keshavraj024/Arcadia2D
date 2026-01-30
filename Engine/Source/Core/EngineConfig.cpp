@@ -24,4 +24,9 @@ EngineConfig::EngineConfig() {
   cursorColor = {json["cursorColor"][0], json["cursorColor"][1], json["cursorColor"][2]};
   joystickDeadzone = json["joystickDeadzone"];
   cursorVisibility = json["cursorVisibility"];
+
+  guiTheme = (json["Gui"]["theme"]).get<std::string>();
+  guiFont = json["Gui"]["font"];
+
+
 }

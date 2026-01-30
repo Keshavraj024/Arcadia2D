@@ -5,6 +5,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <string>
 
+
 struct EngineConfig {
 
     sf::Vector2f windowSize {};
@@ -18,6 +19,9 @@ struct EngineConfig {
     sf::Color cursorColor;
     float joystickDeadzone;
     bool cursorVisibility;
+
+    std::string guiTheme;
+    std::string guiFont;
 
     EngineConfig();
 };

@@ -22,7 +22,7 @@ public:
 
 private:
     sf::RenderWindow &m_renderWindow;
-    sf::CircleShape m_circleShape;
+    sf::CircleShape m_Shape;
     float m_cursorSpeed;
     bool m_isCursorVisible;
 

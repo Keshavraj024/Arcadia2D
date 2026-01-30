@@ -1,7 +1,23 @@
 BasedOnStyle: Google
-
 IndentWidth: 2
 ContinuationIndentWidth: 4
+
+AllowShortFunctionsOnASingleLine: Never
+
+AlignConsecutiveMacros: false
+IndentPPDirectives: AfterHash
+PPIndentWidth: 4
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterClass: true
+  AfterStruct: true
+  AfterEnum: true
+  AfterNamespace: true
+  AfterControlStatement: true
+  BeforeElse: true
+  BeforeCatch: true
 
 IndentAccessModifiers: true
 AccessModifierOffset: 2
@@ -9,8 +25,7 @@ AccessModifierOffset: 2
 PointerAlignment: Left
 ReferenceAlignment: Left
 
-AllowShortFunctionsOnASingleLine: Never
-
 ColumnLimit: 100
-
 NamespaceIndentation: All
+
+

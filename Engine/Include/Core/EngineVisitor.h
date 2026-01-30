@@ -14,6 +14,8 @@ struct EngineVisitor{
     void operator()(const sf::Event::JoystickDisconnected&);
     void operator()(const sf::Event::MouseButtonPressed&);
     void operator()(const sf::Event::KeyPressed&);
-    void operator()(const auto&) {};
+    void operator()(const sf::Event::JoystickButtonPressed &);
+
+    void operator()(const auto &) {};
     ;
 };

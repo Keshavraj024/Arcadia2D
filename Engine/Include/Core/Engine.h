@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <string_view>
 #include "Core/EngineVisitor.h"
 #include "Core/EngineContext.h"
 
@@ -29,4 +30,7 @@ class Engine {
     void EventJoystickDisconnected(const int id);
     void EventMouseButtonPressed();
     void EventWindowScreenshot();
+    void EventSceneChange(std::string_view sceneName);
+    void EventSceneRestart();
+    void EventSceneMenuReturn();
 };

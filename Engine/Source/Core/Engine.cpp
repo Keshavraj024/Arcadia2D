@@ -25,8 +25,15 @@ bool Engine::IsRunning() const
 
 void Engine::ProcessEvents()
 {
+    if(const auto nextScene = m_engineContext.scenes.FetchScene()) {
+        EventSceneChange(nextScene.value());
+    }
+
   while(const auto event = m_window.pollEvent()) {
-    event->visit(EngineVisitor{*this});
+        if(event.has_value()) {
+          event->visit(EngineVisitor{*this});
+          m_engineContext.gui.ProcessEvent(event.value());
+        }
   }
 }
 
@@ -43,6 +50,8 @@ void Engine::Render()
   m_engineContext.renderer.BeginDrawing();
 
   m_window.draw(sf::Sprite(m_engineContext.renderer.FinishDrawing()));
+
+  m_engineContext.gui.Render();
 
   m_engineContext.cursor.Render();
 
@@ -87,4 +96,16 @@ void Engine::EventMouseButtonPressed()
 
 void Engine::EventWindowScreenshot() {
     m_engineContext.screenshot.Take();
+}
+
+void Engine::EventSceneChange([[maybe_unused]] std::string_view sceneName) {
+    // TODO IMPLEMENT LATER
+}
+
+void Engine::EventSceneRestart() {
+    m_engineContext.scenes.RestartScene();
+}
+
+void Engine::EventSceneMenuReturn() {
+    m_engineContext.scenes.ChangeScene("Menu");
 }

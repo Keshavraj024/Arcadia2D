@@ -10,10 +10,10 @@ CursorManager::CursorManager(sf::RenderWindow &window)
     , m_cursorSpeed{gEngineConfig.cursorSpeed}
     , m_isCursorVisible(gEngineConfig.cursorVisibility)
 {
-    m_circleShape.setRadius(gEngineConfig.cursorRadius);
-    m_circleShape.setFillColor(gEngineConfig.cursorColor);
-    m_circleShape.setOrigin(m_circleShape.getGeometricCenter());
-    m_circleShape.setPosition(gEngineConfig.windowSize / 2.f);
+    m_Shape.setRadius(gEngineConfig.cursorRadius);
+    m_Shape.setFillColor(gEngineConfig.cursorColor);
+    m_Shape.setOrigin(m_Shape.getGeometricCenter());
+    m_Shape.setPosition(gEngineConfig.windowSize / 2.f);
 
     m_cursorPos = GetPosition();
 }
@@ -31,17 +31,17 @@ void CursorManager::Update(const float deltaTime)
         m_cursorPos.x = std::clamp(m_cursorPos.x, 0.f, gEngineConfig.windowSize.x);
         m_cursorPos.y = std::clamp(m_cursorPos.y, 0.f, gEngineConfig.windowSize.y);
 
-        m_circleShape.setPosition(m_cursorPos);
+        m_Shape.setPosition(m_cursorPos);
         SetPosition(m_cursorPos);
     } else {
-        m_circleShape.setPosition(GetPosition());
+        m_Shape.setPosition(GetPosition());
     }
 }
 
 void CursorManager::Render() const
 {
     if (gEngineConfig.cursorVisibility) {
-        m_renderWindow.draw(m_circleShape);
+        m_renderWindow.draw(m_Shape);
     }
 }
 
