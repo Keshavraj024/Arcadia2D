@@ -77,5 +77,5 @@ inline bool Contains(const sf::CircleShape &shape, const sf::Vector2f &point)
 
 inline sf::Vector2f Lerp(const sf::Vector2f &start, const sf::Vector2f &end, float t)
 {
-    return {std::lerf(start.x, end.x, t), std::lerf(start.y, end.y, t)};
+    return {std::lerp(start.x, end.x, t), std::lerp(start.y, end.y, t)};
 }

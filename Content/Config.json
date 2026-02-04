@@ -13,7 +13,7 @@
   "cursorColor": [255, 100, 0],
 
   "Gui": {
-    "theme": "Content/Themes/Black.txt",
+    "theme": "Content/Themes/TransparentGrey.txt",
     "font": "Content/Fonts/PressStart2P-Regular.ttf"
   }
 }

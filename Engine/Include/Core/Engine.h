@@ -1,9 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <string_view>
-#include "Core/EngineVisitor.h"
+
 #include "Core/EngineContext.h"
+#include "Core/EngineVisitor.h"
+#include "Core/Overlay.h"
+
+#include "Scene/Scene.h"
+#include "Scene/SceneFactory.h"
 
 class Engine {
   public:
@@ -19,7 +23,13 @@ class Engine {
     sf::RenderWindow m_window;
     EngineContext m_engineContext;
 
-  private:
+    SceneFactory::Scenes m_scenes;
+    Scene *m_currentScene{nullptr};
+
+    Overlay m_overlay;
+    bool m_cursorWasVisible;
+
+private:
     friend EngineVisitor;
 
     void EventWindowClose();
@@ -30,7 +40,9 @@ class Engine {
     void EventJoystickDisconnected(const int id);
     void EventMouseButtonPressed();
     void EventWindowScreenshot();
-    void EventSceneChange(std::string_view sceneName);
+    void EventSceneChange(const std::string &sceneName);
     void EventSceneRestart();
     void EventSceneMenuReturn();
+    void EventOverlayPauseToggle();
+    void EventOverlaySelection(OverlaySelection selection);
 };

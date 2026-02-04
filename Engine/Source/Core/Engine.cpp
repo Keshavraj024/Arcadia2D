@@ -2,7 +2,12 @@
 #include "Core/EngineConfig.h"
 #include "Utils/Log.h"
 
-Engine::Engine() : m_window(sf::VideoMode(sf::Vector2u{gEngineConfig.windowSize}), gEngineConfig.windowTitle), m_engineContext(m_window)
+Engine::Engine()
+    : m_window(sf::VideoMode(sf::Vector2u{gEngineConfig.windowSize}), gEngineConfig.windowTitle)
+    , m_engineContext(m_window)
+    , m_scenes(SceneFactory::CreateScenes(m_engineContext))
+    , m_overlay(m_engineContext.gui)
+    , m_cursorWasVisible{false}
 {
   m_window.setIcon(sf::Image("Content/Textures/windowIcon.png"));
   m_window.setMinimumSize(m_window.getSize() / 2u);
@@ -16,6 +21,7 @@ Engine::Engine() : m_window(sf::VideoMode(sf::Vector2u{gEngineConfig.windowSize}
   LOG_INFO("WINDOW IS CREATED");
 
   m_engineContext.audio.SetGlobalVolume(gEngineConfig.globalVolume);
+  m_engineContext.scenes.ChangeScene("Bounce");
 }
 
 bool Engine::IsRunning() const
@@ -33,6 +39,13 @@ void Engine::ProcessEvents()
         if(event.has_value()) {
           event->visit(EngineVisitor{*this});
           m_engineContext.gui.ProcessEvent(event.value());
+
+          if (!m_overlay.IsVisible() && m_currentScene)
+              m_currentScene->OnEvent(event.value());
+
+          if (const auto selection = m_overlay.FetchSelection()) {
+              EventOverlaySelection(selection.value());
+          }
         }
   }
 }
@@ -41,6 +54,9 @@ void Engine::Update()
 {
   m_engineContext.time.Update();
   m_engineContext.cursor.Update(m_engineContext.time.GetDeltaTime());
+
+  if (!m_overlay.IsVisible() && m_currentScene)
+      m_currentScene->Update();
 }
 
 void Engine::Render()
@@ -48,6 +64,9 @@ void Engine::Render()
   m_window.clear();
 
   m_engineContext.renderer.BeginDrawing();
+
+  if (m_currentScene)
+      m_currentScene->Render();
 
   m_window.draw(sf::Sprite(m_engineContext.renderer.FinishDrawing()));
 
@@ -71,11 +90,15 @@ void Engine::EventWindowResize(const sf::Vector2u &windowSize)
 
 void Engine::EventWindowFocusLost()
 {
+    if (m_currentScene)
+        m_currentScene->OnPause(true);
     // LOG_INFO("WINDOW FOCUS LOST");
 }
 
 void Engine::EventWindowFocusGain()
 {
+    if (m_currentScene)
+        m_currentScene->OnPause(m_overlay.IsVisible());
     // LOG_INFO("WINDOW FOCUS GAIN");
 }
 
@@ -98,14 +121,63 @@ void Engine::EventWindowScreenshot() {
     m_engineContext.screenshot.Take();
 }
 
-void Engine::EventSceneChange([[maybe_unused]] std::string_view sceneName) {
-    // TODO IMPLEMENT LATER
+void Engine::EventSceneChange(const std::string &sceneName)
+{
+    assert(m_scenes.contains(sceneName));
+    Scene *nextScene = m_scenes.at(sceneName).get();
+
+    if (m_currentScene)
+        m_currentScene->OnCleanup();
+
+    m_engineContext.input.Clear();
+    m_currentScene = nextScene;
+    m_currentScene->Start();
 }
 
 void Engine::EventSceneRestart() {
+    m_overlay.SetVisible(false);
     m_engineContext.scenes.RestartScene();
 }
 
 void Engine::EventSceneMenuReturn() {
+    m_overlay.SetVisible(false);
     m_engineContext.scenes.ChangeScene("Menu");
+
+    m_engineContext.cursor.setIsCursorVisible(true);
+    m_engineContext.cursor.setCursorSpeed(gEngineConfig.cursorSpeed);
+}
+
+void Engine::EventOverlayPauseToggle()
+{
+    const auto isOverlayVisible = !m_overlay.IsVisible();
+    m_overlay.SetVisible(isOverlayVisible);
+
+    auto cursorVisibility = m_engineContext.cursor.isCursorVisible();
+    m_engineContext.cursor.setIsCursorVisible(isOverlayVisible || m_cursorWasVisible);
+    m_cursorWasVisible = cursorVisibility;
+
+    if (m_currentScene)
+        m_currentScene->OnPause(isOverlayVisible);
+
+    LOG_INFO(isOverlayVisible ? "Game Paused " : "Game Resumed");
+}
+
+void Engine::EventOverlaySelection(OverlaySelection selection)
+{
+    switch (selection) {
+    case OverlaySelection::Resume:
+        EventOverlayPauseToggle();
+        break;
+    case OverlaySelection::Restart:
+        EventSceneRestart();
+        break;
+    case OverlaySelection::Menu:
+        EventSceneMenuReturn();
+        break;
+    case OverlaySelection::Quit:
+        EventWindowClose();
+        break;
+    default:
+        break;
+    }
 }

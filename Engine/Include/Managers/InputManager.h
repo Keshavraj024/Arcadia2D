@@ -8,8 +8,9 @@ class InputManager {
   public:
     void Bind(int actionId, const Input::Binding& binding);
     bool Pressed(int actionId);
+    void Clear();
 
-  private:
+private:
     std::unordered_multimap<int, Input::Binding> m_bindings;
 
   private:

@@ -46,11 +46,23 @@ void EngineVisitor::operator()(const sf::Event::KeyPressed &key)
 
     if (key.scancode == sf::Keyboard::Scan::M)
         engine.EventSceneMenuReturn();
+
+    if (key.scancode == sf::Keyboard::Scan::Escape)
+        engine.EventOverlayPauseToggle();
 }
 
 void EngineVisitor::operator()(const sf::Event::JoystickButtonPressed &joystick)
 {
-    if (Input::HardwareToLogical(joystick.button, joystick.joystickId) == GamepadButton::Select) {
+    auto button = Input::HardwareToLogical(joystick.button, joystick.joystickId);
+
+    if (!button.has_value())
+        return;
+
+    if (button.value() == GamepadButton::Select) {
         engine.EventSceneMenuReturn();
+    }
+
+    if (button.value() == GamepadButton::Start) {
+        engine.EventOverlayPauseToggle();
     }
 }

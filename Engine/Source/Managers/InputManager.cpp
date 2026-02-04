@@ -1,4 +1,5 @@
 #include "Managers/InputManager.h"
+#include "Utils/Log.h"
 
 #include <algorithm>
 
@@ -14,8 +15,13 @@ bool InputManager::Pressed(int actionId) {
   });
 }
 
+void InputManager::Clear()
+{
+    m_bindings.clear();
+}
+
 bool InputManager::Pressed(const Input::Keyboard &keyboard) const {
-  return sf::Keyboard::isKeyPressed(keyboard.key);
+    return sf::Keyboard::isKeyPressed(keyboard.key);
 }
 
 bool InputManager::Pressed(const Input::Mouse &mouse) const {
@@ -30,5 +36,5 @@ bool InputManager::Pressed(const Input::Gamepad &gamePad) const {
 bool InputManager::Pressed(const Input::Axis &binding) const {
   const float axis =
       sf::Joystick::getAxisPosition(binding.id, binding.axis) / 100;  // clamp between - 1 and 1
-  return (binding.threshold >= 0) ? (axis > binding.threshold) : (axis > binding.threshold);
+  return (binding.threshold >= 0) ? (axis > binding.threshold) : (axis < binding.threshold);
 }

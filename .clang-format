@@ -8,6 +8,8 @@ AlignConsecutiveMacros: false
 IndentPPDirectives: AfterHash
 PPIndentWidth: 4
 
+NamespaceIndentation: All
+
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
@@ -26,6 +28,6 @@ PointerAlignment: Left
 ReferenceAlignment: Left
 
 ColumnLimit: 100
-NamespaceIndentation: All
+
 
 

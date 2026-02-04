@@ -10,16 +10,19 @@ FetchContent_Declare(sfml URL https://github.com/SFML/SFML/archive/refs/tags/3.0
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
 FetchContent_Declare(logs URL https://github.com/gabime/spdlog/archive/refs/tags/v1.17.0.tar.gz)
 FetchContent_Declare(tgui URL https://github.com/texus/TGUI/archive/refs/tags/v1.11.0.tar.gz)
-FetchContent_MakeAvailable(sfml json logs tgui)
+FetchContent_Declare(enum URL https://github.com/Neargye/magic_enum/archive/refs/tags/v0.9.7.tar.gz)
+FetchContent_MakeAvailable(sfml json logs tgui enum)
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS Engine/Source/*.cpp)
-file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS Engine/Include/*.h)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS Engine/Source/*.cpp Games/Source/*.cpp)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS Engine/Include/*.h Games/Include/*.h)
 
+# find_package(magic_enum CONFIG REQUIRED)
 
-add_executable(Arcadia2D)
+add_executable(Arcadia2D
+    Games/Include/Bounce.h)
 target_sources(Arcadia2D PRIVATE ${SOURCES} ${HEADERS})
 
-target_include_directories(Arcadia2D PRIVATE Engine/Include)
+target_include_directories(Arcadia2D PRIVATE Engine/Include Games/Include/)
 target_compile_features(Arcadia2D PRIVATE cxx_std_20)
 target_compile_options(Arcadia2D PRIVATE $<IF:$<CXX_COMPILER_ID:MSVC>, /W4, -Wall -Wextra>)
-target_link_libraries(Arcadia2D PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nlohmann_json spdlog::spdlog TGUI::TGUI)
+target_link_libraries(Arcadia2D PRIVATE SFML::Graphics SFML::Audio nlohmann_json::nlohmann_json spdlog::spdlog TGUI::TGUI magic_enum::magic_enum)

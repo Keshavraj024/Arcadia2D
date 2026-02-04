@@ -17,10 +17,9 @@ void SceneManager::RestartScene() {
 
 std::optional<std::string> SceneManager::FetchScene() {
     if(m_nextScene.has_value()) {
-        if(m_currentScene == m_nextScene.value()) {
+        if (m_currentScene == m_nextScene.value()) {
             LOG_INFO("Restarting scene : {}", m_currentScene);
-        }
-        else {
+        } else {
             LOG_INFO("Changing scene to: {}", m_nextScene.value());
         }
         m_currentScene = m_nextScene.value();
