@@ -1,5 +1,6 @@
 #include "Managers/RenderManager.h"
 #include "Core/EngineConfig.h"
+#include "Graphics/Effects/EffectGlitch.h"
 #include "Graphics/Effects/EffectInverted.h"
 #include "Utils/Verify.h"
 
@@ -18,6 +19,7 @@ RenderManager::RenderManager()
         VERIFY(m_effectsTarget.resize(sf::Vector2u(gEngineConfig.windowSize)));
 
         m_effects.emplace_back(std::make_unique<EffectInverted>());
+        m_effects.emplace_back(std::make_unique<EffectGlitch>());
     }
 }
 
@@ -68,5 +70,5 @@ const sf::Texture &RenderManager::FinishDrawing()
     //     std::swap(input, output);
     // }
 
-    return input->getTexture();
+    return m_renderTexture.getTexture();
 }
