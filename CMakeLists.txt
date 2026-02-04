@@ -18,8 +18,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS Engine/Include/*.h Games/Include/*.h
 
 # find_package(magic_enum CONFIG REQUIRED)
 
-add_executable(Arcadia2D
-    Games/Include/Bounce.h)
+add_executable(Arcadia2D)
 target_sources(Arcadia2D PRIVATE ${SOURCES} ${HEADERS})
 
 target_include_directories(Arcadia2D PRIVATE Engine/Include Games/Include/)

@@ -19,7 +19,9 @@ class Engine {
     void Update();
     void Render();
 
-  private:
+    bool HasFocus();
+
+private:
     sf::RenderWindow m_window;
     EngineContext m_engineContext;
 

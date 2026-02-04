@@ -1,5 +1,9 @@
 #include "Managers/RenderManager.h"
 #include "Core/EngineConfig.h"
+#include "Graphics/Effects/EffectInverted.h"
+#include "Utils/Verify.h"
+
+#include <utility>
 
 RenderManager::RenderManager()
     : m_renderTexture(sf::Vector2u(gEngineConfig.windowSize))
@@ -9,7 +13,15 @@ RenderManager::RenderManager()
     m_renderTexture.setSmooth(true);
     m_backgroundShape.setTexture(&m_backgroundTexture);
     m_backgroundShape.setFillColor(gEngineConfig.backgroundColor);
+
+    if (sf::Shader::isAvailable()) {
+        VERIFY(m_effectsTarget.resize(sf::Vector2u(gEngineConfig.windowSize)));
+
+        m_effects.emplace_back(std::make_unique<EffectInverted>());
+    }
 }
+
+RenderManager::~RenderManager() {}
 
 void RenderManager::Draw(const sf::Drawable &drawable)
 {
@@ -37,5 +49,24 @@ const sf::Texture &RenderManager::FinishDrawing()
 {
     m_renderTexture.display();
 
-    return m_renderTexture.getTexture();
+    sf::RenderTexture *input = &m_renderTexture;
+    sf::RenderTexture *output = &m_effectsTarget;
+
+    std::ranges::for_each(m_effects, [&](auto &effect) {
+        output->clear();
+        effect->Apply(input->getTexture(), *output);
+        output->display();
+
+        std::swap(input, output);
+    });
+
+    // for(auto& effect: m_effects) {
+    //     output->clear();
+    //     effect->Apply(input->getTexture(), *output);
+    //     output->display();
+
+    //     std::swap(input, output);
+    // }
+
+    return input->getTexture();
 }

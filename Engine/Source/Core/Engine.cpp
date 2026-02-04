@@ -77,6 +77,11 @@ void Engine::Render()
   m_window.display();
 }
 
+bool Engine::HasFocus()
+{
+    return m_window.hasFocus();
+}
+
 void Engine::EventWindowClose()
 {
     m_window.close();

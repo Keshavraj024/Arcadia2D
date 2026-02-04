@@ -1,11 +1,18 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <memory>
+#include <vector>
+
+// #include "Graphics/Effects.h"
+
+class Effects;
 
 class RenderManager
 {
 public:
     RenderManager();
+    ~RenderManager();
 
     void Draw(const sf::Drawable &drawable);
 
@@ -17,6 +24,9 @@ private:
     sf::RenderTexture m_renderTexture;
     sf::RectangleShape m_backgroundShape;
     sf::Texture m_backgroundTexture;
+
+    sf::RenderTexture m_effectsTarget;
+    std::vector<std::unique_ptr<Effects>> m_effects;
 
 private:
     friend class Engine;
